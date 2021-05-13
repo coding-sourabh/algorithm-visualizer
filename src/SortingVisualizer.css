@@ -1,0 +1,9 @@
+.sorting__visualizer{
+    margin-left: 40px;
+    margin-top: 20px;
+}
+.all__bars {
+    width: 2px;
+    display: inline-block;
+    margin-right: 2px;
+}
