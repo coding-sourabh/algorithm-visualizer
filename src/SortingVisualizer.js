@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import "./SortingVisualizer.css";
 import { bubbleSort } from "./sortingAlgos/BubbleSort";
 import { mergeSort } from "./sortingAlgos/MergeSort";
+import { quickSort } from "./sortingAlgos/QuickSort";
+import { heapSort } from "./sortingAlgos/HeapSort";
+
 // Change this value to change the speed of the animation.
-const ANIMATION_SPEED_MS = 1;
+const ANIMATION_SPEED_MS = 0.5;
 
 // Change this value to change the size of array or number of bars.
 const NUMBER_OF_ARRAY_BARS = 300;
@@ -29,85 +32,66 @@ function SortingVisualizer() {
       arrayBars[i].style.backgroundColor = PRIMARY_COLOR;
   };
 
-  const handleBubbleSort = () => {
-    const arrayBars = document.getElementsByClassName("all__bars");
-
-    const animation = bubbleSort(array);
-
-    for (let i = 0; i < animation.length; i++) {
-      const [barOneIdx, barTwoIdx, swap] = animation[i];
-
-      if (swap === 0) {
-        // only comparison
-        setTimeout(() => {
-          arrayBars[barOneIdx].style.backgroundColor = SECONDARY_COLOR;
-          arrayBars[barTwoIdx].style.backgroundColor = SECONDARY_COLOR;
-        }, i * ANIMATION_SPEED_MS);
-      } else if (swap === 2) {
-        setTimeout(() => {
-          arrayBars[barOneIdx].style.backgroundColor = PRIMARY_COLOR;
-          arrayBars[barTwoIdx].style.backgroundColor = PRIMARY_COLOR;
-        }, i * ANIMATION_SPEED_MS);
-      } else if (swap === 1) {
-        // swap
-        setTimeout(() => {
-          arrayBars[barOneIdx].style.height = `${barTwoIdx}px`;
-        }, i * ANIMATION_SPEED_MS);
-      } else {
-        // last swap
-        arrayBars[barOneIdx].style.backgroundColor = SECONDARY_COLOR;
-      }
-    }
-  };
-
-  const handleMergeSort = () => {
-    const animations = mergeSort(array);
+  const makeChanges = (animations) => {
     const arrayBars = document.getElementsByClassName("all__bars");
 
     for (let i = 0; i < animations.length; i++) {
+      
       const [barOneIdx, barTwoIdx] = animations[i];
-
       if (i % 3 === 2) {
         // change
         setTimeout(() => {
           const height = barTwoIdx;
-          // console.log(arrayBars[barOneIdx].style.height);
           arrayBars[barOneIdx].style.height = `${height}px`;
         }, i * ANIMATION_SPEED_MS);
       } else {
-        //compare
+        // compare
         setTimeout(() => {
           arrayBars[barOneIdx].style.backgroundColor =
-           (i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR);
+            i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
 
-          arrayBars[barOneIdx].style.backgroundColor =
-            (i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR);
-
+          arrayBars[barTwoIdx].style.backgroundColor =
+            i % 3 === 0 ? SECONDARY_COLOR : PRIMARY_COLOR;
         }, i * ANIMATION_SPEED_MS);
       }
     }
   };
 
-  const handleQuickSort = () => {};
-  const handleHeapSort = () => {};
+  const handleBubbleSort = () => {
+    const animations = bubbleSort(array);
+    makeChanges(animations);
+  };
+
+  const handleMergeSort = () => {
+    const animations = mergeSort(array);
+    makeChanges(animations);
+  };
+
+  const handleQuickSort = () => {
+    const animations = quickSort(array);
+    makeChanges(animations);
+  };
+
+  const handleHeapSort = () => {
+    const animations = heapSort(array);
+    makeChanges(animations);
+  };
 
   return (
     <div className="sorting__visualizer">
-      <div className="all_bars">
-        {array.map((value, idx) => (
-          //don't forget to write return i waste too much time on that thing
+      {array.map((value, idx) => (
+        //don't forget to write return i waste too much time on that thing
 
-          <div
-            className="all__bars"
-            key={idx}
-            style={{
-              backgroundColor: PRIMARY_COLOR,
-              height: `${value}px`,
-            }}
-          ></div>
-        ))}
-      </div>
-
+        <div
+          className="all__bars"
+          key={idx}
+          style={{
+            backgroundColor: PRIMARY_COLOR,
+            height: `${value}px`,
+          }}
+        ></div>
+      ))}
+      <br />
       <button className="gen" onClick={generateArray}>
         Generate Array
       </button>
@@ -115,16 +99,20 @@ function SortingVisualizer() {
         Bubble Sort
       </button>
 
-      <button className="bub" onClick={handleMergeSort}>
+      <button className="mer" onClick={handleMergeSort}>
         Merge Sort
       </button>
 
-      <button className="bub" onClick={handleQuickSort}>
+      <button className="qui" onClick={handleQuickSort}>
         Quick Sort
       </button>
 
-      <button className="bub" onClick={handleHeapSort}>
+      <button className="hea" onClick={handleHeapSort}>
         Heap Sort
+      </button>
+
+      <button className="halt">
+        Halt
       </button>
     </div>
   );
