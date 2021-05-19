@@ -6,13 +6,13 @@ import { quickSort } from "./sortingAlgos/QuickSort";
 import { heapSort } from "./sortingAlgos/HeapSort";
 
 // Change this value to change the speed of the animation.
-const ANIMATION_SPEED_MS = 0.5;
+const ANIMATION_SPEED_MS = 1;
 
 // Change this value to change the size of array or number of bars.
 const NUMBER_OF_ARRAY_BARS = 300;
 
 // This is the main color of the array bars.
-const PRIMARY_COLOR = "coral";
+const PRIMARY_COLOR = "#82EEFD";
 
 // This is the color of array bars that are being compared throughout the animations.
 const SECONDARY_COLOR = "green";
@@ -36,7 +36,6 @@ function SortingVisualizer() {
     const arrayBars = document.getElementsByClassName("all__bars");
 
     for (let i = 0; i < animations.length; i++) {
-      
       const [barOneIdx, barTwoIdx] = animations[i];
       if (i % 3 === 2) {
         // change
@@ -78,42 +77,42 @@ function SortingVisualizer() {
   };
 
   return (
-    <div className="sorting__visualizer">
-      {array.map((value, idx) => (
-        //don't forget to write return i waste too much time on that thing
+    <div className="sorting__visualizerHead">
+      <div className="sorting__visualizer">
+        {array.map((value, idx) => (
+          //don't forget to write return i waste too much time on that thing
 
-        <div
-          className="all__bars"
-          key={idx}
-          style={{
-            backgroundColor: PRIMARY_COLOR,
-            height: `${value}px`,
-          }}
-        ></div>
-      ))}
-      <br />
-      <button className="gen" onClick={generateArray}>
-        Generate Array
-      </button>
-      <button className="bub" onClick={handleBubbleSort}>
-        Bubble Sort
-      </button>
+          <div
+            className="all__bars"
+            key={idx}
+            style={{
+              backgroundColor: PRIMARY_COLOR,
+              height: `${value}px`,
+            }}
+          ></div>
+        ))}
+        <br />
+        <button className="gen btn-warning" onClick={generateArray}>
+          Generate Array
+        </button>
+        <button className="bub btn-success" onClick={handleBubbleSort}>
+          Bubble Sort
+        </button>
 
-      <button className="mer" onClick={handleMergeSort}>
-        Merge Sort
-      </button>
+        <button className="mer btn-success" onClick={handleMergeSort}>
+          Merge Sort
+        </button>
 
-      <button className="qui" onClick={handleQuickSort}>
-        Quick Sort
-      </button>
+        <button className="qui btn-success" onClick={handleQuickSort}>
+          Quick Sort
+        </button>
 
-      <button className="hea" onClick={handleHeapSort}>
-        Heap Sort
-      </button>
+        <button className="hea btn-success" onClick={handleHeapSort}>
+          Heap Sort
+        </button>
 
-      <button className="halt">
-        Halt
-      </button>
+        <button className="halt btn-danger">Halt</button>
+      </div>
     </div>
   );
 }

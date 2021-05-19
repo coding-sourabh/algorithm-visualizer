@@ -1,9 +1,15 @@
+.sorting__visualizerHead {
+  background: linear-gradient(45deg, rgba(4, 2, 26, 0.2), rgba(13, 4, 34, 0.58)),
+    url("b1.jpg");
+}
+
 .sorting__visualizer {
   margin-left: 40px;
   margin-top: 20px;
+  height: 100vh;
 }
 .all__bars {
   width: 2px;
-  display: inline-block ;
+  display: inline-block;
   margin-right: 2px;
 }
