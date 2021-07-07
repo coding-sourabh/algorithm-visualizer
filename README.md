@@ -1,4 +1,4 @@
-**Live Site Link : https://algorithm-visualizer-1299.netlify.app/ **
+**Live Site Link :** https://algorithm-visualizer-1299.netlify.app/ 
 
 # Getting Started with Create React App
 
